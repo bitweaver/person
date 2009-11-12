@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.1 2009/09/23 15:20:22 spiderr Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.2 2009/11/12 14:27:06 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @class BitPerson
  */
 
@@ -363,8 +363,36 @@ class BitPerson extends LibertyForm {
 			'name_last' => $this->mInfo['name_last'],
 			'name_suffix' => $this->mInfo['name_suffix'],
 			);
+		if($altname = $this->getAltname()) $dataHash['name_pref'] = $altname;
 		return self::formatDataShort($dataHash);
 	} // }}} getDataShort()
+
+	// {{{ getAltname() retrieve a string containing this persons preferred alternate name
+	/**
+	 * @param boolean whether verbose details to be added to string
+	 * @return string the email address and perhaps other data
+	 */
+	public function getAltname($pVerbose=FALSE) {
+		return $this->getPreferred('altname', $pVerbose, FALSE); // Don't fallback if no preferred
+	} // }}} getAltname()
+
+	// {{{ getEmail() retrieve a string containing this persons preferred email address
+	/**
+	 * @param boolean whether verbose details to be added to string
+	 * @return string the email address and perhaps other data
+	 */
+	public function getEmail($pVerbose=FALSE) {
+		return $this->getPreferred('email', $pVerbose);
+	} // }}} getEmail()
+
+	// {{{ getPhone() retrieve a string containing this persons preferred phone#
+	/**
+	 * @param boolean whether verbose details to be added to string
+	 * @return string the phone#
+	 */
+	public function getPhone($pVerbose=FALSE) {
+		return $this->getPreferred('phone', $pVerbose);
+	} // }}} getPhone()
 // }}} ---- end public functions
 
 // {{{ ---- public static functions ----
@@ -476,6 +504,10 @@ class BitPerson extends LibertyForm {
 		if(isset($pDataHash['name_title']) && !empty($pDataHash['name_title'])) {
 			$display .= trim($pDataHash['name_title']);
 		}
+		if(isset($pDataHash['name_pref']) && !empty($pDataHash['name_pref'])) {
+			if(!empty($display)) $display .= " ";
+			$display .= "(".trim($pDataHash['name_pref']).")";
+		}
 		if(isset($pDataHash['name_1sts']) && !empty($pDataHash['name_1sts'])) {
 			if(!empty($display)) $display .= " ";
 			$display .= trim($pDataHash['name_1sts']);
@@ -491,6 +523,28 @@ class BitPerson extends LibertyForm {
 		return $display;
 	} // }}} formatDataShort()
 // }}} ---- end public static functions ----
+
+// {{{ ---- protected functions ----
+	// {{{ getPreferred() retrieve the preferred item of one of persons sub table fields
+	/**
+	 * @param string base name of preferred field, currently 'email', 'altname', & 'phone' valid
+	 * @param boolean whether verbose details to be added to string
+	 * @param boolean whether to fallback to first item if no preferred item
+	 * @return string the phone#
+	 */
+	protected function getPreferred($pName, $pVerbose, $pFallback1st=TRUE) {
+		if(!array_key_exists($pName.'_1_id', $this->mInfo)) return "** Error ".$pName." invalid **";
+		$pref_txt = '';
+		if(($id = $this->mInfo[$pName.'_1_id']) && isset($this->mInfo['person_'.$pName][$id]) ||
+		   ($pFallback1st && ($id = key($this->mInfo['person_'.$pName])))) {
+			$pref_txt = $this->mInfo['person_'.$pName][$id]['text'];
+			if($pVerbose && !empty($this->mInfo['person_'.$pName][$id]['type'])) {
+				$pref_txt .= ' ('.$this->mInfo['person_'.$pName][$id]['type'].')';
+			}
+		}
+		return $pref_txt;
+	} // }}} getPreferred()
+// }}} ---- end protected functions ----
 
 } // BitPerson class
 
