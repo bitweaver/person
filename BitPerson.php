@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.2 2009/11/12 14:27:06 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.3 2009/11/17 15:10:42 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  * @class BitPerson
  */
 
@@ -481,16 +481,24 @@ class BitPerson extends LibertyForm {
 		return $ret;
 	} // }}} getPossibles()
 
+	// {{{ getQuickData() quick return of this objects basic data
+	/**
+	 * @param int $pId the identifier for an object of this type
+	 * @return array hash of this objects DB fields
+	 */
+	public static function getQuickData($pId) {
+		global $gBitSystem;
+		$query = "SELECT * FROM `".BIT_DB_PREFIX.self::DATA_TBL."` WHERE (`person_id` = ?)";
+		return $gBitSystem->mDb->getRow($query, array($pId));
+	} // }}} getQuickData()
+
 	// {{{ getQuickDisplay() quick disply of object of this type without instantiating
 	/**
 	 * @param int $pId the identifier for an object of this type
 	 * @return string quick summary of object with Id
 	 */
 	public static function getQuickDisplay($pId) {
-		global $gBitSystem;
-		$query = "SELECT * FROM `".BIT_DB_PREFIX.self::DATA_TBL."` WHERE (`person_id` = ?)";
-		$bindVars[] = $pId;
-		$ret = $gBitSystem->mDb->getRow($query, $bindVars);
+		$ret = self::getQuickData($pId);
 		return ($ret ? self::formatDataShort($ret) : "Unknown Person");
 	} // }}} getQuickDisplay()
 
