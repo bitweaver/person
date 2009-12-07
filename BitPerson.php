@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.3 2009/11/17 15:10:42 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.4 2009/12/07 15:16:37 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  * @class BitPerson
  */
 
@@ -331,25 +331,28 @@ class BitPerson extends LibertyForm {
 
 	// {{{ getFields() get the gui form elements to edit and display the data
 	/**
+	 * @param array $pWantedFields has where keys are the wanted fields, NULL means all fields
 	 * @return array List of objects GUI fields
 	 */
-	public function getFields() {
-		parent::getFields();
+	public function getFields($pWantedFields=NULL) {
 
-		$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['options'][0] = "&lt;none&gt;";
-		foreach(@BitAddress::getOptions() as $address_id => $address_text) {
-			$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['options'][$address_id] = $address_text;
-		}
-		// Only give options of addresses that haven't already been used
-		if(!empty($this->mFields[self::ADDRESS_TBL]['value'])) {
-			$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['notopts'] = $this->mFields[self::ADDRESS_TBL]['value'];
+		if(empty($pWantedFields) || array_key_exists(self::ADDRESS_TBL, $pWantedFields)) {
+			$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['options'][0] = "&lt;none&gt;";
+			foreach(@BitAddress::getOptions() as $address_id => $address_text) {
+				$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['options'][$address_id] = $address_text;
+			}
+			// Only give options of addresses that haven't already been used
+			if(!empty($this->mFields[self::ADDRESS_TBL]['value'])) {
+				$this->mFields[self::ADDRESS_TBL]['fields']['address_id']['notopts'] = $this->mFields[self::ADDRESS_TBL]['value'];
+			}
 		}
 
+		// No real point in setting these up if not wanted - but do anyway as low cost, don't bother if move into DB
 		$this->mFields[self::EMAIL_TBL]['fields']['type']['options'] = array(""=>"<none>", "Home"=>"Home", "Work"=>"Work", "Other"=>"Other");
 		$this->mFields[self::ALTNAME_TBL]['fields']['type']['options'] = array(""=>"<none>", "Nickname"=>"Nickname", "Maiden"=>"Maiden", "Other"=>"Other");
 		$this->mFields[self::PHONE_TBL]['fields']['type']['options'] = array(""=>"<none>", "Work"=>"Work", "Home"=>"Home", "Mobile"=>"Mobile");
 
-		return $this->mFields;
+		return parent::getFields($pWantedFields);
 	} // }}} getFields()
 
 	// {{{ getDataShort() retrieve a short string containing at least some of this objects data
