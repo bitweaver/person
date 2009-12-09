@@ -1,9 +1,9 @@
-{* $Header: /cvsroot/bitweaver/_bit_person/templates/edit.tpl,v 1.1 2009/09/23 15:20:22 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_person/templates/edit.tpl,v 1.2 2009/12/09 21:59:53 dansut Exp $ *}
 {strip}
 <div class="floaticon">
 	{bithelp}
 	{if $gContent->hasExpungePermission() && $gContent->isValid()}
-		<a title="{tr}Remove this Person{/tr}" href="{$smarty.const.PERSON_PKG_URL}remove.php?person_id={$gContent->mInfo.person_id}">{biticon ipackage="icons" iname="edit-delete" iexplain="Remove Person"}</a>
+		<a title="{tr}Remove this Person{/tr}" href="{$gContent->getRemoveUrl()}">{biticon ipackage="icons" iname="edit-delete" iexplain="Remove Person"}</a>
 	{/if}
 	{assign var=iconsize value=$gBitSystem->getConfig("site_icon_size")}
 	{biticon ipackage="person" iname="pkg_person" iexplain="person" iclass="$iconsize icon"}
@@ -11,7 +11,7 @@
 
 <div class="admin person">
 	<div class="header">
-		<h1>{if $gContent->isValid()}{tr}Edit Person Data{/tr}{else}{tr}Create New Person Data{/tr}{/if}</h1>
+		<h1>{if $gContent->isValid()}{tr}Edit{/tr}{else}{tr}Create New{/tr}{/if} {tr}Person Data{/tr}</h1>
 	</div>
 
 	<div class="body">

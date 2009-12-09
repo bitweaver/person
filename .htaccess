@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine  on
+#	Uncomment this line if you have a crappy host
+#	RewriteBase /person/
+#	RewriteRule ^([0-9]+)$  index.php?person_id=$1  [L]
+	RewriteCond %{SCRIPT_FILENAME}  -f [OR]
+	RewriteCond %{SCRIPT_FILENAME}/index.php    -f
+	RewriteRule ^(.*)$            - [L]
+	RewriteRule ^remove/(.*)$  remove.php?person_id=$1  [L]
+	RewriteRule ^edit/(.*)$  edit.php?person_id=$1  [L]
+	RewriteRule ^view/(.*)$  index.php?person_id=$1  [L]
+	RewriteRule ^(.*)$  index.php?person_id=$1  [L]
+</IfModule>

@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_person/templates/list.tpl,v 1.1 2009/09/23 15:20:22 spiderr Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_person/templates/list.tpl,v 1.2 2009/12/09 21:59:53 dansut Exp $ *}
 {strip}
 {assign var=fwidth value=45}
 {assign var=lwidth value=40}
@@ -41,7 +41,7 @@
 				{foreach item=person from=$list}
 					{assign var=id value=`$person.person_id`}
 					<tr class="{cycle values="even,odd"}">
-						<td class="alignright"><a href="{$smarty.const.PERSON_PKG_URL}index.php?person_id={$id}" title="{$id}">{$id}</a></td>
+						<td class="alignright"><a href="{$person.display_url}" title="{$id}">{$id}</a></td>
 						{if $twidth}<td class="listleft">{$person.name_title|escape}</td>{/if}
 						<td class="listleft">{$person.name_1sts|escape}</td>
 						<td class="listleft">{$person.name_last|escape}</td>
@@ -49,7 +49,7 @@
 						{if $dwidth}<td class="listcntr">{$person.title|escape}</td>{/if}
 						<td class="actionicon">
 						{if $gBitUser->hasPermission('p_person_update')}
-							{smartlink ititle="Edit" ifile="edit.php" ibiticon="icons/accessories-text-editor" person_id=$id}
+							<a title="{tr}Edit{/tr}" href="{$person.edit_url}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Person"}</a>
 						{/if}
 						</td>
 					</tr>

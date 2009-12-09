@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.4 2009/12/07 15:16:37 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.5 2009/12/09 21:59:53 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  * @class BitPerson
  */
 
@@ -448,6 +448,9 @@ class BitPerson extends LibertyForm {
 		$result = $gBitSystem->mDb->query($query, $bindVars, $max_records, $offset);
 		$ret = array();
 		while($res = $result->fetchRow()) {
+			$res['display_url'] = self::getUrl(PERSON_PKG_URL, 'person_id', $res['person_id']);
+			$res['edit_url'] = self::getUrl(PERSON_PKG_URL, 'person_id', $res['person_id'], 'edit');
+			$res['remove_url'] = self::getUrl(PERSON_PKG_URL, 'person_id', $res['person_id'], 'remove');
 			$ret[] = $res;
 		}
 		$query_cant = "

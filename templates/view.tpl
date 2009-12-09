@@ -3,7 +3,7 @@
 	<div class="floaticon">
 		{if $print_page ne 'y'}
 			{if $gContent->hasUpdatePermission()}
-				<a title="{tr}Edit this person{/tr}" href="{$smarty.const.PERSON_PKG_URL}edit.php?person_id={$gContent->mInfo.person_id}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Person"}</a>
+				<a title="{tr}Edit this person{/tr}" href="{$gContent->getEditUrl()}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Person"}</a>
 			{/if}
 		{/if}<!-- end print_page -->
 		{assign var=iconsize value=$gBitSystem->getConfig("site_icon_size")}
