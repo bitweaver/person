@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.5 2009/12/09 21:59:53 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.6 2009/12/18 20:38:53 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  * @class BitPerson
  */
 
@@ -480,7 +480,7 @@ class BitPerson extends LibertyForm {
 //			$whereSql = " WHERE (d.`date_born` > $now) ";
 //		}
 		$ret = $gBitSystem->mDb->getAssoc("
-			SELECT d.`person_id` AS `hash_key`, d.`name_last`, d.`name_1sts`
+			SELECT d.`person_id` AS `hash_key`, d.`name_last`, d.`name_1sts`, d.`content_id`
 			FROM `".BIT_DB_PREFIX.self::DATA_TBL."` d
 			$whereSql
 			ORDER BY `hash_key`");
