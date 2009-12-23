@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.6 2009/12/18 20:38:53 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.7 2009/12/23 14:26:13 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  * @class BitPerson
  */
 
@@ -536,6 +536,17 @@ class BitPerson extends LibertyForm {
 		}
 		return $display;
 	} // }}} formatDataShort()
+
+	// {{{ findContentId() get the Liberty content id of  an object of this type given its Id
+	/**
+	 * @return int of the content_id of the matching object, 0 if no match
+	 */
+	public static function findContentId($pId) {
+		global $gBitSystem;
+		$query = "SELECT d.`content_id` FROM `".BIT_DB_PREFIX.self::DATA_TBL."` d WHERE (d.`person_id` = ?) ";
+		$ret = $gBitSystem->mDb->getOne($query, array($pId));
+		return ($ret ? $ret : 0);
+	} // }}} findContentId()
 // }}} ---- end public static functions ----
 
 // {{{ ---- protected functions ----
