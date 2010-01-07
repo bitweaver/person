@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.7 2009/12/23 14:26:13 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.8 2010/01/07 16:18:51 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  * @class BitPerson
  */
 
@@ -101,9 +101,6 @@ class BitPerson extends LibertyForm {
 		ksort($country_options);
 
 		$altname_fields = array(
-			"altname_id" => array(
-				"type" => "hidden",
-			),
 			"type" => array(
 				"description" => "Type",
 				"type" => "options",
@@ -130,12 +127,12 @@ class BitPerson extends LibertyForm {
 				"description" => "Remove",
 				"type" => "remove",
 			),
+			"altname_id" => array(
+				"type" => "hidden",
+			),
 		);
 
 		$email_fields = array(
-			"email_id" => array(
-				"type" => "hidden",
-			),
 			"type" => array(
 				"description" => "Type",
 				"type" => "options",
@@ -163,12 +160,12 @@ class BitPerson extends LibertyForm {
 				"description" => "Remove",
 				"type" => "remove",
 			),
+			"email_id" => array(
+				"type" => "hidden",
+			),
 		);
 
 		$phone_fields = array(
-			"phone_id" => array(
-				"type" => "hidden",
-			),
 			"type" => array(
 				"description" => "Type",
 				"type" => "options",
@@ -195,6 +192,9 @@ class BitPerson extends LibertyForm {
 			"remove" => array(
 				"description" => "Remove",
 				"type" => "remove",
+			),
+			"phone_id" => array(
+				"type" => "hidden",
 			),
 		);
 
