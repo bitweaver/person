@@ -1,30 +1,31 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/admin/admin_person_inc.php,v 1.1 2009/09/23 15:20:22 spiderr Exp $
+/**
+ * @version $Header: /cvsroot/bitweaver/_bit_person/admin/admin_person_inc.php,v 1.2 2010/01/14 21:49:42 dansut Exp $
+ * @package person
+ */
+require_once(PERSON_PKG_PATH.'BitPerson.php');
 
-require_once( PERSON_PKG_PATH.'BitPerson.php' );
+$pkgname = PERSON_PKG_NAME;
+$grpname = $pkgname.'_admin';
+$gBitSmarty->assign('grpname', $grpname);
 
-$formPersonLists = array(
-	"person_list_name_title" => array(
-		'label' => 'Title',
-		'note' => 'Display the personal title.',
+// Process the form if some changes have been submitted
+if(isset($_REQUEST[$grpname.'_submit'])) LibertyForm::storeConfigs($_REQUEST[$grpname], $pkgname);
+
+$fields = array(
+	"list_name_title" => array(
+		'description' => 'Title',
+		'helptext' => 'Display the personal title.',
+		'type' => 'checkbox',
+		'value' => $gBitSystem->getConfig($pkgname.'_list_name_title'),
 	),
-	"person_list_gender" => array(
-		'label' => 'Gender',
-		'note' => 'Display the gender of the person.',
+	"list_gender" => array(
+		'description' => 'Gender',
+		'helptext' => 'Display the gender of the person.',
+		'type' => 'checkbox',
+		'value' => $gBitSystem->getConfig($pkgname.'_list_gender'),
 	),
 );
-$gBitSmarty->assign( 'formPersonLists', $formPersonLists );
-$person = new BitPerson();
-
-// Process the form if we've made some changes
-if( !empty( $_REQUEST['person'] )) {
-	$personToggles = array_merge( $formPersonLists );
-	foreach( $personToggles as $item => $data ) {
-		simple_set_toggle( $item, PERSON_PKG_NAME );
-	}
-}
-
-$person_data = $person->getList( $_REQUEST );
-$gBitSmarty->assign_by_ref( 'person_data', $person_data);
+$gBitSmarty->assign('fields', $fields);
 
 ?>

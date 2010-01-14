@@ -1,23 +1,16 @@
+{* $Header: /cvsroot/bitweaver/_bit_person/templates/admin_person.tpl,v 1.2 2010/01/14 21:49:42 dansut Exp $ *}
 {strip}
 {form}
+	<input type="hidden" name="page" value="{$page}" />
 	{jstabs}
 		{jstab title="Listing"}
 			{legend legend="Person List Field Visibility Settings"}
-				<input type="hidden" name="page" value="{$page}" />
-				{foreach from=$formPersonLists key=item item=output}
-					<div class="row">
-						{formlabel label=`$output.label` for=$item}
-						{forminput}
-							{html_checkboxes name="$item" values="y" checked=$gBitSystem->getConfig($item) labels=false id=$item}
-							{formhelp note=`$output.note` page=`$output.page`}
-						{/forminput}
-					</div>
-				{/foreach}
+				{formfields fields=$fields grpname=$grpname}
 			{/legend}
 		{/jstab}
 
 		<div class="row submit">
-			<input type="submit" name="person_settings" value="{tr}Change preferences{/tr}" />
+			<input type="submit" name="{$grpname}_submit" value="{tr}Change preferences{/tr}" />
 		</div>
 	{/jstabs}
 {/form}
