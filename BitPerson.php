@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.8 2010/01/07 16:18:51 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.9 2010/01/15 22:58:35 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  * @class BitPerson
  */
 
@@ -231,18 +231,21 @@ class BitPerson extends LibertyForm {
 			),
 			"name_1sts" => array(
 				"description" => "First Names",
+				"type" => "text",
 				"maxlen" => 72,
 				"required" => TRUE,
 				"helptext" => "Persons legal first or forenames, used on passport, birth certificate, etc.",
 			),
 			"name_last" => array(
 				"description" => "Last Name",
+				"type" => "text",
 				"maxlen" => 64,
 				"required" => TRUE,
 				"helptext" => "Persons legal last or surname, used on passport, birth certificate, etc.",
 			),
 			"name_suffix" => array(
 				"description" => "Name Suffix",
+				"type" => "text",
 				"maxlen" => 32,
 				"helptext" => "Any suffix text a person may have to there name, eg. Jr/Sr/II/III.",
 			),
@@ -396,6 +399,19 @@ class BitPerson extends LibertyForm {
 	public function getPhone($pVerbose=FALSE) {
 		return $this->getPreferred('phone', $pVerbose);
 	} // }}} getPhone()
+
+	// {{{ giveAddress() give this person a new already existing address
+	/**
+	 * @param int $pAddressId the Id of an existing address
+	 * @param boolean $pPreferred whether to make this address the preferred one
+	 */
+	public function giveAddress($pAddressId, $pPreferred=FALSE) {
+		$this->mInfo[self::ADDRESS_TBL][$pAddressId] = array(
+			'address_id' => $pAddressId,
+			'person_id' => $this->mInfo['person_id'],
+			'active' => 'y');
+		if($pPreferred) $this->mInfo['address_1_id'] = $pAddressId;
+	} // }}} getAddress()
 // }}} ---- end public functions
 
 // {{{ ---- public static functions ----
@@ -469,8 +485,8 @@ class BitPerson extends LibertyForm {
 
 	// {{{ getPossibles() get an array of people
 	/**
-	 * @param boolean $only18plus - only show cruises which have yet to sale
-	 * @return array people with key id as key and array of first and last names for val
+	 * @param boolean $only18plus - only show people who are over 18
+	 * @return array people with id as key and array of first and last names for val
 	 */
 	public static function getPossibles($pOnly18plus=TRUE) {
 		global $gBitSystem;
@@ -486,6 +502,30 @@ class BitPerson extends LibertyForm {
 			ORDER BY `hash_key`");
 		return $ret;
 	} // }}} getPossibles()
+
+	// {{{ getAddresses() get an array of addresses associated with a person
+	/**
+	 * @param int $pId the identifier for an object of this type
+	 * @param boolean $onlyActive - only give addresses which are marked as active
+	 * @return array address ids with id as key and value is string describing address
+	 */
+	public static function getAddresses($pId, $pOnlyActive=TRUE) {
+		global $gBitSystem;
+		$whereSql = (($pOnlyActive) ? " AND (d.`active` = 'y') " : '');
+		$query = "
+			SELECT a.*
+			FROM `".BIT_DB_PREFIX.self::ADDRESS_TBL."` d
+				INNER JOIN `".BIT_DB_PREFIX.BitAddress::DATA_TBL."` a ON (a.`address_id` = d.`address_id`)
+			WHERE (d.`person_id` = ?)
+				$whereSql
+			";
+		$result = $gBitSystem->mDb->query($query, array($pId));
+		$ret = array();
+		while($res = $result->fetchRow()) {
+			$ret[$res['address_id']] = BitAddress::formatDataShort($res);
+		}
+		return $ret;
+	} // }}} getAddresses()
 
 	// {{{ getQuickData() quick return of this objects basic data
 	/**
