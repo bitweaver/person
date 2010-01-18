@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_person/templates/list.tpl,v 1.2 2009/12/09 21:59:53 dansut Exp $ *}
+{* $Header: /cvsroot/bitweaver/_bit_person/templates/list.tpl,v 1.3 2010/01/18 17:39:21 dansut Exp $ *}
 {strip}
 {assign var=fwidth value=45}
 {assign var=lwidth value=40}
@@ -30,10 +30,10 @@
 
 			<table class="data">
 				<tr>
-					<th width="5%" class="alignright">{smartlink ititle="Id" isort=person_id offset=$control.offset iorder=person_id idefault=1}</th>
+					<th width="5%" class="alignright">{smartlink ititle="Id" isort=person_id offset=$control.offset iorder=person_id}</th>
 					{if $twidth}<th width="{$twidth}%" class="listleft">{smartlink ititle="Title" isort=name_title offset=$control.offset}</th>{/if}
 					<th width="{$fwidth-$twidth-$gwidth}%" class="listleft">{smartlink ititle="First Names" isort=name_1sts offset=$control.offset}</th>
-					<th width="{$lwidth-$dwidth}%" class="listleft">{smartlink ititle="Last Name" isort=name_last offset=$control.offset}</th>
+					<th width="{$lwidth-$dwidth}%" class="listleft">{smartlink ititle="Last Name" isort=name_last offset=$control.offset idefault=1}</th>
 					{if $gwidth}<th width="{$gwidth}%" class="listleft">{smartlink ititle="Gender" isort=gender offset=$control.offset}</th>{/if}
 					{if $dwidth}<th width="{$dwidth}%" class="listleft">{smartlink ititle="Description" isort=title offset=$control.offset}</th>{/if}
 					<th width="10%" class="listright">{tr}Actions{/tr}</th>

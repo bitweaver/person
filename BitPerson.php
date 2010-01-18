@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.10 2010/01/18 15:04:42 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.11 2010/01/18 17:39:12 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  * @class BitPerson
  */
 
@@ -433,6 +433,10 @@ class BitPerson extends LibertyForm {
 	 */
 	public static function getList(&$pParamHash) {
 		global $gBitSystem;
+
+		// Fix default sort mode if one not specified
+		if(!isset($pParamHash['sort_mode'])) $pParamHash['sort_mode'] = 'name_last_asc';
+
 		// this makes sure parameters used later on are set
 		parent::prepGetList($pParamHash);
 
