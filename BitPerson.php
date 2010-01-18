@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.9 2010/01/15 22:58:35 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.10 2010/01/18 15:04:42 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  * @class BitPerson
  */
 
@@ -411,7 +411,7 @@ class BitPerson extends LibertyForm {
 			'person_id' => $this->mInfo['person_id'],
 			'active' => 'y');
 		if($pPreferred) $this->mInfo['address_1_id'] = $pAddressId;
-	} // }}} getAddress()
+	} // }}} giveAddress()
 // }}} ---- end public functions
 
 // {{{ ---- public static functions ----
@@ -518,7 +518,7 @@ class BitPerson extends LibertyForm {
 				INNER JOIN `".BIT_DB_PREFIX.BitAddress::DATA_TBL."` a ON (a.`address_id` = d.`address_id`)
 			WHERE (d.`person_id` = ?)
 				$whereSql
-			";
+			ORDER BY d.`address_id`";
 		$result = $gBitSystem->mDb->query($query, array($pId));
 		$ret = array();
 		while($res = $result->fetchRow()) {
