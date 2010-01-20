@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.11 2010/01/18 17:39:12 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.12 2010/01/20 21:23:42 dansut Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  * @class BitPerson
  */
 
@@ -400,6 +400,15 @@ class BitPerson extends LibertyForm {
 		return $this->getPreferred('phone', $pVerbose);
 	} // }}} getPhone()
 
+	// {{{ getAddress() retrieve a string containing this persons preferred address
+	/**
+	 * @param boolean whether verbose details to be added to string
+	 * @return string the address
+	 */
+	public function getAddress($pVerbose=FALSE) {
+		return $this->getPreferred('address', $pVerbose, FALSE);
+	} // }}} getAddress()
+
 	// {{{ giveAddress() give this person a new already existing address
 	/**
 	 * @param int $pAddressId the Id of an existing address
@@ -606,9 +615,13 @@ class BitPerson extends LibertyForm {
 		$pref_txt = '';
 		if(($id = $this->mInfo[$pName.'_1_id']) && isset($this->mInfo['person_'.$pName][$id]) ||
 		   ($pFallback1st && ($id = key($this->mInfo['person_'.$pName])))) {
-			$pref_txt = $this->mInfo['person_'.$pName][$id]['text'];
-			if($pVerbose && !empty($this->mInfo['person_'.$pName][$id]['type'])) {
-				$pref_txt .= ' ('.$this->mInfo['person_'.$pName][$id]['type'].')';
+			if($pName == 'address') {
+				$pref_txt = BitAddress::getQuickDisplay($this->mInfo['person_address'][$id]['address_id']);
+			} else {
+				$pref_txt = $this->mInfo['person_'.$pName][$id]['text'];
+				if($pVerbose && !empty($this->mInfo['person_'.$pName][$id]['type'])) {
+					$pref_txt .= ' ('.$this->mInfo['person_'.$pName][$id]['type'].')';
+				}
 			}
 		}
 		return $pref_txt;
