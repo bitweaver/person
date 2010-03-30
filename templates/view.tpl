@@ -21,6 +21,7 @@
 	<div class="body">
 		<h2>{$gContent->getDataShort()|escape}</h2>
 		<hr />
+		{formfields fields=$gContent->getFields() grpname="person" disabled=TRUE}
 		<div class="content">
 			{include file="bitpackage:liberty/services_inc.tpl" serviceLocation='body' serviceHash=$gContent->mInfo}
 			{$gContent->mInfo.parsed_data}
