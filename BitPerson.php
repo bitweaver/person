@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.12 2010/01/20 21:23:42 dansut Exp $
+// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.13 2010/04/18 02:27:24 wjames5 Exp $
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  * @class BitPerson
  */
 
@@ -82,7 +82,8 @@ class BitPerson extends LibertyForm {
 		$this->mContentTypeGuid = self::CONTENT_TYPE_GUID;
 		$this->registerContentType(self::CONTENT_TYPE_GUID, array(
 			'content_type_guid'   => self::CONTENT_TYPE_GUID,
-			'content_description' => 'Bitweaver person data',
+			'content_name' => 'Bitweaver person data',
+			'content_name_plural' => 'Bitweaver persons data',
 			'handler_class'       => 'BitPerson',
 			'handler_package'     => 'person',
 			'handler_file'        => 'BitPerson.php',
