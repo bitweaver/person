@@ -1,6 +1,6 @@
 <?php
 /**
- * @version $Header: /cvsroot/bitweaver/_bit_person/admin/admin_person_inc.php,v 1.2 2010/01/14 21:49:42 dansut Exp $
+ * @version $Header$
  * @package person
  */
 require_once(PERSON_PKG_PATH.'BitPerson.php');

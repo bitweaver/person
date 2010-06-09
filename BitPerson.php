@@ -1,12 +1,12 @@
 <?php
-// $Header: /cvsroot/bitweaver/_bit_person/BitPerson.php,v 1.13 2010/04/18 02:27:24 wjames5 Exp $
+// $Header$
 /**
  * BitPerson is an object designed to contain and allow the manipulation of a
  * person's contact and other personal details 
  *
  * date created 2009/3/16
  * @author Daniel Sutcliffe <dan@lrcnh.com>
- * @version $Revision: 1.13 $
+ * @version $Revision$
  * @class BitPerson
  */
 

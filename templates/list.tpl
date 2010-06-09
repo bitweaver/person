@@ -1,4 +1,4 @@
-{* $Header: /cvsroot/bitweaver/_bit_person/templates/list.tpl,v 1.3 2010/01/18 17:39:21 dansut Exp $ *}
+{* $Header$ *}
 {strip}
 {assign var=fwidth value=45}
 {assign var=lwidth value=40}
