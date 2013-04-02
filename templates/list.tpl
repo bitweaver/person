@@ -49,7 +49,7 @@
 						{if $dwidth}<td class="listcntr">{$person.title|escape}</td>{/if}
 						<td class="actionicon">
 						{if $gBitUser->hasPermission('p_person_update')}
-							<a title="{tr}Edit{/tr}" href="{$person.edit_url}">{biticon ipackage="icons" iname="accessories-text-editor" iexplain="Edit Person"}</a>
+							<a title="{tr}Edit{/tr}" href="{$person.edit_url}">{booticon iname="icon-edit" ipackage="icons" iexplain="Edit Person"}</a>
 						{/if}
 						</td>
 					</tr>

@@ -3,7 +3,7 @@
 <div class="floaticon">
 	{bithelp}
 	{if $gContent->hasExpungePermission() && $gContent->isValid()}
-		<a title="{tr}Remove this Person{/tr}" href="{$gContent->getRemoveUrl()}">{biticon ipackage="icons" iname="edit-delete" iexplain="Remove Person"}</a>
+		<a title="{tr}Remove this Person{/tr}" href="{$gContent->getRemoveUrl()}">{booticon iname="icon-trash" ipackage="icons" iexplain="Remove Person"}</a>
 	{/if}
 	{assign var=iconsize value=$gBitSystem->getConfig("site_icon_size")}
 	{biticon ipackage="person" iname="pkg_person" iexplain="person" iclass="$iconsize icon"}
