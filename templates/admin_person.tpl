@@ -10,7 +10,7 @@
 		{/jstab}
 
 		<div class="control-group submit">
-			<input type="submit" name="{$grpname}_submit" value="{tr}Change preferences{/tr}" />
+			<input type="submit" class="btn" name="{$grpname}_submit" value="{tr}Change preferences{/tr}" />
 		</div>
 	{/jstabs}
 {/form}

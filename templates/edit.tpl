@@ -48,7 +48,7 @@
 				{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_tab_tpl"}
 			{/jstabs}
 			<div class="control-group submit">
-				<input type="submit" name="save_person"
+				<input type="submit" class="btn" name="save_person"
 					value="{tr}{if $gContent->mInfo.person_id}Update{else}Create{/if} Person{/tr}" />
 			</div>
 		{/form}
