@@ -16,7 +16,7 @@ if($gBitSystem->isPackageActive('person')) {
 		$menuHash = array(
 			'package_name'  => PERSON_PKG_NAME,
 			'index_url'     => PERSON_PKG_URL.'index.php',
-			'menu_template' => 'bitpackage:person/menu.tpl',
+			'menu_template' => 'bitpackage:person/menu_person.tpl',
 		);
 		$gBitSystem->registerAppMenu($menuHash);
 	}

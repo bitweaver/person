@@ -1,4 +1,3 @@
-{* $Header$ *}
 {strip}
 {form}
 	<input type="hidden" name="page" value="{$page}" />

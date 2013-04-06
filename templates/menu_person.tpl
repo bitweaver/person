@@ -1,5 +1,6 @@
 {strip}
-<ul>
+<a class="dropdown-toggle" data-toggle="dropdown" href="#"> {tr}{$packageMenuTitle}{/tr} <b class="caret"></b></a>
+<ul class="{$packageMenuClass}">
 	{if $gBitUser->hasPermission('p_person_view')}
 		<li><a class="item" href="{$smarty.const.PERSON_PKG_URL}">{booticon iname="icon-group" iexplain="List People" iforce="icon"}&nbsp;{tr}List&nbsp;People{/tr}</a></li>
 	{/if}

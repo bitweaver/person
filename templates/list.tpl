@@ -1,4 +1,3 @@
-{* $Header$ *}
 {strip}
 {assign var=fwidth value=45}
 {assign var=lwidth value=40}
@@ -39,7 +38,7 @@
 					<th width="10%" class="listright">{tr}Actions{/tr}</th>
 				</tr>
 				{foreach item=person from=$list}
-					{assign var=id value=`$person.person_id`}
+					{assign var=id value=$person.person_id}
 					<tr class="{cycle values="even,odd"}">
 						<td class="alignright"><a href="{$person.display_url}" title="{$id}">{$id}</a></td>
 						{if $twidth}<td class="listleft">{$person.name_title|escape}</td>{/if}
