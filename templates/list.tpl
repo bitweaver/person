@@ -27,7 +27,7 @@
 			<input type="hidden" name="offset" value="{$control.offset|escape}" />
 			<input type="hidden" name="sort_mode" value="{$control.sort_mode|escape}" />
 
-			<table class="data">
+			<table class="table data">
 				<tr>
 					<th width="5%" class="alignright">{smartlink ititle="Id" isort=person_id offset=$control.offset iorder=person_id}</th>
 					{if $twidth}<th width="{$twidth}%" class="listleft">{smartlink ititle="Title" isort=name_title offset=$control.offset}</th>{/if}
