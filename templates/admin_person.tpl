@@ -8,7 +8,7 @@
 			{/legend}
 		{/jstab}
 
-		<div class="control-group submit">
+		<div class="form-group submit">
 			<input type="submit" class="btn btn-default" name="{$grpname}_submit" value="{tr}Change preferences{/tr}" />
 		</div>
 	{/jstabs}

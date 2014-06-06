@@ -23,7 +23,7 @@
 
 						{formfields fields=$fields errors=$errors grpname="person"}
 
-						<div class="control-group">
+						<div class="form-group">
 							{formfeedback warning=$errors.title}
 							{formlabel label="Description" for="title"}
 							{forminput}
@@ -46,7 +46,7 @@
 				{* any service edit template tabs *}
 				{include file="bitpackage:liberty/edit_services_inc.tpl" serviceFile="content_edit_tab_tpl"}
 			{/jstabs}
-			<div class="control-group submit">
+			<div class="form-group submit">
 				<input type="submit" class="btn btn-default" name="save_person"
 					value="{tr}{if $gContent->mInfo.person_id}Update{else}Create{/if} Person{/tr}" />
 			</div>
